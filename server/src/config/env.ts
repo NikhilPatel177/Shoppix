@@ -26,7 +26,17 @@ const envSchema = z.object({
     .string()
     .regex(
       /^\d+[smhd]$/,
-      'REFRESH_TOKEN_EXPIRES_IN must be a valid time string like 15m,2h.7d'
+      'REFRESH_TOKEN_EXPIRES_IN must be a valid time string like 15m,2h,7d'
+    ),
+
+  EMAIL_TOKEN_SECRET: z.string({
+    required_error: 'EMAIL_TOKEN_SECRET is required',
+  }),
+  EMAIL_TOKEN_EXPIRES_IN: z
+    .string()
+    .regex(
+      /^\d+[smhd]$/,
+      'EMAIL_TOKEN_EXPIRES_IN must be a valid time string like 15m,2h,7d'
     ),
 
   GOOGLE_CLIENT_ID: z.string({
@@ -34,6 +44,13 @@ const envSchema = z.object({
   }),
   GOOGLE_CLIENT_SECRET: z.string({
     required_error: 'GOOGLE_CLIENT_SECRET is required',
+  }),
+
+  BREVO_SMTP_SERVER: z.string({
+    required_error: 'BREVO_SMTP_SERVER is required',
+  }),
+  BREVO_SMTP_PASSWORD: z.string({
+    required_error: 'BREVO_SMTP_PASSWORD is required',
   }),
 });
 

@@ -10,6 +10,9 @@ import { generateTokens, Tokens } from '../utils/generateTokens';
 import { env } from '../../../config/env';
 import { User } from '../types/auth.types';
 import { getRespondedUserData } from '../utils/getRespondedUserData';
+import { sendEmail } from '../../../shared/utils/sendEmail';
+import { generateTemplate } from '../../../shared/emails/generateTemplates';
+import jwt from 'jsonwebtoken';
 
 export const registerUser: RequestHandler = async (req, res) => {
   const data = req.validatedData as RegisterFormData;
@@ -42,11 +45,29 @@ export const registerUser: RequestHandler = async (req, res) => {
     newUser.refreshToken = tokens.refreshToken;
     await newUser.save();
 
+    const token = jwt.sign(
+      { id: newUser.id, purpose: 'Email_Verify' },
+      env.EMAIL_TOKEN_SECRET,
+      { expiresIn: env.EMAIL_TOKEN_EXPIRES_IN } as jwt.SignOptions
+    );
+    console.log(token)
+    const html = generateTemplate('verify-email', {
+      name: newUser.fullName.firstName,
+      verifyUrl: `https://shoppix.com/verify-email?token=${token}`,
+      year: new Date().getFullYear().toString(),
+    });
+
+    await sendEmail({
+      to: newUser.email,
+      subject: 'Verify Your Shoppix Email',
+      html,
+    });
+
     respondWithData<User, string>(
       res,
       getRespondedUserData(newUser),
       201,
-      'User registration successfull',
+      'Registration successful. Please check your email to verify your account.',
       tokens.accessToken
     );
   } catch (error) {

@@ -13,6 +13,7 @@ import {
   setPasswordSchema,
 } from '../validators/password.validator';
 import { setPassword } from '../controllers/password/setPassword.controller';
+import { verifyEmail } from '../controllers/email/verifyEmail.controller';
 
 const router = Router();
 
@@ -34,4 +35,6 @@ router.post(
   validateSchema(setPasswordSchema),
   setPassword
 );
+
+router.patch('/verify-email/:token', verifyEmail);
 export default router;
