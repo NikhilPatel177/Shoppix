@@ -20,6 +20,8 @@ export interface IUser extends Document {
   refreshToken: string;
   updatedAt: Date;
   id: string;
+
+  comparePassword(enteredPassword: string): Promise<boolean>;
 }
 
 const providerSubSchema = new mongoose.Schema(
