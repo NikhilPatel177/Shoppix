@@ -28,6 +28,13 @@ const envSchema = z.object({
       /^\d+[smhd]$/,
       'REFRESH_TOKEN_EXPIRES_IN must be a valid time string like 15m,2h.7d'
     ),
+
+  GOOGLE_CLIENT_ID: z.string({
+    required_error: 'GOOGLE_CLIENT_ID is required',
+  }),
+  GOOGLE_CLIENT_SECRET: z.string({
+    required_error: 'GOOGLE_CLIENT_SECRET is required',
+  }),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

@@ -7,6 +7,12 @@ import { loginUser } from '../controllers/login.controller';
 import { isAuthenticated } from '../../../shared/middlewares/isAuthenticated.middleware';
 import { logoutUser } from '../controllers/logout.controller';
 import { refreshTheTokens } from '../controllers/refreshToken.controller';
+import { changeThePassword } from '../controllers/password/changePassword.controller';
+import {
+  changePasswordSchema,
+  setPasswordSchema,
+} from '../validators/password.validator';
+import { setPassword } from '../controllers/password/setPassword.controller';
 
 const router = Router();
 
@@ -15,4 +21,17 @@ router.post('/login', validateSchema(loginSchema), loginUser);
 router.post('/logout', isAuthenticated, logoutUser);
 
 router.post('/refresh-token', refreshTheTokens);
+
+router.patch(
+  '/change-password',
+  isAuthenticated,
+  validateSchema(changePasswordSchema),
+  changeThePassword
+);
+router.post(
+  '/set-password',
+  isAuthenticated,
+  validateSchema(setPasswordSchema),
+  setPassword
+);
 export default router;
