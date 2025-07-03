@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 
 type Roles = 'seller' | 'client' | 'admin';
 
-interface IUser extends Document {
+export interface IUser extends Document {
   fullName: {
     firstName: string;
     lastName: string;
