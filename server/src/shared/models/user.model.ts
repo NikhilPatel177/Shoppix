@@ -11,7 +11,8 @@ export interface IUser extends Document {
   email: string;
   password: string;
   profileImg: string;
-  provider: { name: string; id: string | null }[];
+  provider: ['google' | 'credentials'];
+  providerId: string;
   role: Roles[];
   activeRole: Roles;
   isVerified: boolean;
@@ -23,14 +24,6 @@ export interface IUser extends Document {
 
   comparePassword(enteredPassword: string): Promise<boolean>;
 }
-
-const providerSubSchema = new mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    id: { type: String, default: null },
-  },
-  { _id: false }
-);
 
 const userSchema: Schema<IUser> = new Schema<IUser>(
   {
@@ -45,12 +38,20 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       unique: true,
       index: true,
     },
-    password: { type: String, required: true, select: false },
+    password: {
+      type: String,
+      required: function (this: IUser) {
+        return !this.providerId;
+      },
+      select: false,
+    },
     profileImg: String,
     provider: {
-      type: [providerSubSchema],
-      default: [{ name: 'credentials', id: null }],
+      type: [String],
+      enum: ['google', 'credentials'],
+      default: ['credentials'],
     },
+    providerId: String,
     role: {
       type: [String],
       enum: ['seller', 'admin', 'client'],
