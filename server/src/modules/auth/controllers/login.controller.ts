@@ -36,6 +36,7 @@ export const loginUser: RequestHandler = async (req, res, next) => {
       sameSite: 'lax',
       secure: env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
     });
 
     isUser.refreshToken = tokens.refreshToken;

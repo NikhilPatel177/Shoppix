@@ -36,6 +36,7 @@ export const registerUser: RequestHandler = async (req, res) => {
       secure: env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
     });
 
     newUser.refreshToken = tokens.refreshToken;
@@ -48,7 +49,6 @@ export const registerUser: RequestHandler = async (req, res) => {
       'User registration successfull',
       tokens.accessToken
     );
-
   } catch (error) {
     console.log('Registration failed : ', error);
     respondServerErr(res);
