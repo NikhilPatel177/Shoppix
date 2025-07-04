@@ -14,6 +14,7 @@ import {
 } from '../validators/password.validator';
 import { setPassword } from '../controllers/password/setPassword.controller';
 import { verifyEmail } from '../controllers/email/verifyEmail.controller';
+import { resendForEmailVerification } from '../controllers/email/resendEmailVerification.controller';
 
 const router = Router();
 
@@ -37,4 +38,10 @@ router.post(
 );
 
 router.patch('/verify-email/:token', verifyEmail);
+router.post(
+  '/resend-email-verification',
+  isAuthenticated,
+  resendForEmailVerification
+);
+
 export default router;

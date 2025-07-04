@@ -50,7 +50,6 @@ export const registerUser: RequestHandler = async (req, res) => {
       env.EMAIL_TOKEN_SECRET,
       { expiresIn: env.EMAIL_TOKEN_EXPIRES_IN } as jwt.SignOptions
     );
-    console.log(token)
     const html = generateTemplate('verify-email', {
       name: newUser.fullName.firstName,
       verifyUrl: `https://shoppix.com/verify-email?token=${token}`,
