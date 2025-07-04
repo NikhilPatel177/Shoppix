@@ -11,7 +11,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   profileImg: string;
-  provider: ['google' | 'credentials'];
+  provider: ('google' | 'credentials')[];
   providerId: string;
   role: Roles[];
   activeRole: Roles;

@@ -18,6 +18,8 @@ import { verifyEmail } from '../controllers/email/verifyEmail.controller';
 import { resendForEmailVerification } from '../controllers/email/resendEmailVerification.controller';
 import { forgotPassword } from '../controllers/password/forgotPassword.controller';
 import { resetPassword } from '../controllers/password/resetPassword.controller';
+import passport from 'passport';
+import { handleGoogleRedirect } from '../controllers/googleRedirect.controller';
 
 const router = Router();
 
@@ -26,6 +28,16 @@ router.post('/login', validateSchema(loginSchema), loginUser);
 router.post('/logout', isAuthenticated, logoutUser);
 
 router.post('/refresh-token', refreshTheTokens);
+
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+router.get(
+  '/google/callback',
+  passport.authenticate('google', { session: false }),
+  handleGoogleRedirect
+);
 
 router.patch(
   '/change-password',
@@ -40,7 +52,11 @@ router.post(
   setPassword
 );
 router.post('/forgot-password', forgotPassword);
-router.post('/reset-password',validateSchema(resetPasswordSchema), resetPassword);
+router.post(
+  '/reset-password',
+  validateSchema(resetPasswordSchema),
+  resetPassword
+);
 
 router.patch('/verify-email/:token', verifyEmail);
 router.post(

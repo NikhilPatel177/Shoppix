@@ -1,3 +1,4 @@
+import './config/passport'
 import { env } from './config/env';
 import http from 'http';
 import app from './app';
