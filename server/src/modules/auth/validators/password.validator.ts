@@ -34,3 +34,13 @@ export const setPasswordSchema = passwordBaseSchema
   });
 
 export type setPasswordFormData = z.infer<typeof setPasswordSchema>;
+
+export const resetPasswordSchema = passwordBaseSchema
+  .pick({ newPassword: true, confirmNewPassword: true })
+  .extend({ token: z.string({ required_error: 'Token is required' }) })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: 'New password and confirm password must match',
+    path: ['confirmNewPassword'],
+  });
+
+export type resetPasswordFormData = z.infer<typeof resetPasswordSchema>;

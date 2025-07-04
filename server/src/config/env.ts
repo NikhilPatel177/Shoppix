@@ -32,11 +32,14 @@ const envSchema = z.object({
   EMAIL_TOKEN_SECRET: z.string({
     required_error: 'EMAIL_TOKEN_SECRET is required',
   }),
-  EMAIL_TOKEN_EXPIRES_IN: z
+  RESET_PASSWORD_TOKEN_SECRET: z.string({
+    required_error: 'RESET_PASSWORD_TOKEN_SECRET is required',
+  }),
+  MULTIPURPOSE_TOKEN_EXPIRES_IN: z
     .string()
     .regex(
       /^\d+[smhd]$/,
-      'EMAIL_TOKEN_EXPIRES_IN must be a valid time string like 15m,2h,7d'
+      'MULTIPURPOSE_TOKEN_EXPIRES_IN must be a valid time string like 15m,2h,7d'
     ),
 
   GOOGLE_CLIENT_ID: z.string({

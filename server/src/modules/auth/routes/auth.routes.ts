@@ -10,11 +10,14 @@ import { refreshTheTokens } from '../controllers/refreshToken.controller';
 import { changeThePassword } from '../controllers/password/changePassword.controller';
 import {
   changePasswordSchema,
+  resetPasswordSchema,
   setPasswordSchema,
 } from '../validators/password.validator';
 import { setPassword } from '../controllers/password/setPassword.controller';
 import { verifyEmail } from '../controllers/email/verifyEmail.controller';
 import { resendForEmailVerification } from '../controllers/email/resendEmailVerification.controller';
+import { forgotPassword } from '../controllers/password/forgotPassword.controller';
+import { resetPassword } from '../controllers/password/resetPassword.controller';
 
 const router = Router();
 
@@ -36,6 +39,8 @@ router.post(
   validateSchema(setPasswordSchema),
   setPassword
 );
+router.post('/forgot-password', forgotPassword);
+router.post('/reset-password',validateSchema(resetPasswordSchema), resetPassword);
 
 router.patch('/verify-email/:token', verifyEmail);
 router.post(

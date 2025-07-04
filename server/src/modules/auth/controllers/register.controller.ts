@@ -48,7 +48,7 @@ export const registerUser: RequestHandler = async (req, res) => {
     const token = jwt.sign(
       { id: newUser.id, purpose: 'Email_Verify' },
       env.EMAIL_TOKEN_SECRET,
-      { expiresIn: env.EMAIL_TOKEN_EXPIRES_IN } as jwt.SignOptions
+      { expiresIn: env.MULTIPURPOSE_TOKEN_EXPIRES_IN } as jwt.SignOptions
     );
     const html = generateTemplate('verify-email', {
       name: newUser.fullName.firstName,
