@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 export type UserRoles = 'buyer' | 'seller' | 'admin';
 export type providers = 'google' | 'credentials';
 export interface IUser {
-  id: [string];
+  id: string;
   email: string;
   password?: string;
   roles: UserRoles[];

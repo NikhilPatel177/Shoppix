@@ -6,6 +6,11 @@ const envSchema = z.object({
   PORT: z.string().transform(Number).default(3000),
   MONGO_URI: z.url(),
   NODE_ENV: z.enum(['development', 'production']),
+
+  ACCESS_TOKEN_SECRET: z.string().min(32),
+  REFRESH_TOKEN_SECRET: z.string().min(32),
+  ACCESS_TOKEN_EXPIRY: z.string().default('15m'),
+  REFRESH_TOKEN_EXPIRY: z.string().default('7d'),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
