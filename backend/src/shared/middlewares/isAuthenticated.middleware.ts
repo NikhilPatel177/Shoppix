@@ -3,9 +3,9 @@ import jwt from 'jsonwebtoken';
 import { AppError } from '../utils/AppResponse';
 import { DecodedJwt } from '../types/DecodedToken.type';
 import env from '@/config/env';
+import UserModel from '../models/user.model';
 
-
-export const isAuthenticated = (
+export const isAuthenticated = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -21,7 +21,13 @@ export const isAuthenticated = (
   try {
     const decoded = jwt.verify(token, env.ACCESS_TOKEN_SECRET) as DecodedJwt;
 
-    req.user = decoded; 
+    const isUser = await UserModel.findById(decoded.id);
+    if (!isUser) {
+      AppError(res, 404, 'Malformed token: cause no user found with it');
+      return;
+    }
+    
+    req.user = decoded;
     next();
   } catch (error: any) {
     if (error.name === 'TokenExpiredError') {

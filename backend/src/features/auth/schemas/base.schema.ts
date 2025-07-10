@@ -8,6 +8,9 @@ export const authBaseSchema = z.object({
   password: z
     .string({ error: 'Password is required' })
     .min(8, { error: 'At least 8 characters' }),
+  currentPassword: z
+    .string({ error: 'Current password is required' })
+    .min(8, { error: 'At least 8 characters' }),
 });
 
 export const strongPasswordField = z

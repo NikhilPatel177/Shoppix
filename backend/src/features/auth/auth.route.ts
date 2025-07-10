@@ -6,12 +6,20 @@ import { loginUser } from './controllers/login.controller';
 import { logoutUser } from './controllers/logout.controller';
 import { isAuthenticated } from '@/shared/middlewares/isAuthenticated.middleware';
 import { refreshingTheTokens } from './controllers/refreshTokens.controller';
+import { changePassword } from './controllers/changePassword.controller';
+import { changePasswordSchema } from './schemas/changePassword.schema';
 
 const router = Router();
 
 router.post('/register', validateSchema(registerSchema), registerUser);
 router.post('/login', validateSchema(loginSchema), loginUser);
-router.post('/logout', isAuthenticated, logoutUser);
 router.post('/refresh-token', refreshingTheTokens);
+router.post('/logout', isAuthenticated, logoutUser);
+router.patch(
+  '/change-password',
+  isAuthenticated,
+  validateSchema(changePasswordSchema),
+  changePassword
+);
 
 export { router as authRoutes };

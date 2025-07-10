@@ -7,13 +7,9 @@ export const logoutUser: RequestHandler = async (req, res) => {
   const user = req.user;
   try {
     const userExists = await UserModel.findById(user.id);
-    if (!userExists) {
-      AppError(res, 404, 'Invalid token: cause user not found');
-      return;
-    }
 
-    userExists.refreshToken = '';
-    await userExists.save();
+    userExists!.refreshToken = '';
+    await userExists!.save();
 
     res.clearCookie('refreshToken', {
       sameSite: 'lax',
