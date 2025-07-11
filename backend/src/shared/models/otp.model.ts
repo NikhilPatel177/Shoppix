@@ -17,14 +17,17 @@ export interface IOtp extends Document {
 const otpSchema = new Schema<IOtp, Model<IOtp>, IOtp>(
   {
     email: { type: String, required: true, unique: true },
-    otpCode: { type: String, maxlength: 6, required: true },
+    otpCode: { type: String, required: true },
     purpose: {
       type: String,
       enum: ['verify_email', 'forgot_password'] as OtpPurpose[],
       default: 'verify_email',
     },
-    attempts: { type: Number, dafault: 0 },
-    lockedUntil: Date,
+    attempts: { type: Number, default: 0 },
+    lockedUntil: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );

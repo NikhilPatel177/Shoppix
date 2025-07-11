@@ -8,7 +8,7 @@ export const otpEmailTemplates = (
 ): string => {
   const templatePath = path.join(
     __dirname,
-    `/src/shared/emails/${templateName}.html`
+    `/templates/${templateName}.html`
   );
 
   const rawHtml = fs.readFileSync(templatePath, 'utf8');

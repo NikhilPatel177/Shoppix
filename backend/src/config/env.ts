@@ -16,6 +16,9 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_CALLBACK_URL: z.url(),
   FRONTEND_URL: z.url(),
+
+  BREVO_EMAIL: z.email(),
+  BREVO_SMTP_KEY: z.string(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

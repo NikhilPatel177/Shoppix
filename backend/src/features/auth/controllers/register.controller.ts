@@ -6,6 +6,10 @@ import { generateTokens } from '../utils/generateTokens';
 import env from '@/config/env';
 import { AuthUserType } from '../types/auth.types';
 import { sendFormattedData } from '../utils/sendFormattedData';
+import { sendEmail } from '@/shared/utils/sendEmails';
+import { otpEmailTemplates } from '@/shared/emails/EmailTemplates';
+import { generateOtp } from '@/shared/utils/generateOtp';
+import OtpModel from '@/shared/models/otp.model';
 
 export const registerUser: RequestHandler = async (req, res) => {
   const { email, password } = req.validatedData as AuthCredentials;
@@ -26,6 +30,29 @@ export const registerUser: RequestHandler = async (req, res) => {
     newUser.refreshToken = tokens.refreshToken;
     await newUser.save();
 
+    const otp = generateOtp();
+    await OtpModel.deleteMany({
+      email: newUser.email,
+      purpose: 'verify_email',
+    });
+    await OtpModel.create({
+      email: newUser.email,
+      otpCode: otp,
+      purpose: 'verify_email',
+    });
+
+    try {
+      await sendEmail(
+        newUser.email,
+        'Email verification otp code',
+        'verify_email',
+        otp
+      );
+      console.log('Email sent');
+    } catch (emailErr) {
+      console.error('Failed to send OTP email:', emailErr);
+    }
+    
     res.cookie('refreshToken', tokens.refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       sameSite: 'lax',

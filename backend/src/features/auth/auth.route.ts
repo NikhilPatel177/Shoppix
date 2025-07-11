@@ -12,6 +12,9 @@ import passport from 'passport';
 import { googleOauthCallback } from './controllers/googleOAuth.controller';
 import { setPasswordSchema } from './schemas/setPassword.schema';
 import { setPassword } from './controllers/setPassword.controller';
+import { verifyEmail } from './controllers/verifyEmail.controller';
+import { resendEmailWithOtp } from './controllers/resend-email/resendEmailVerification.controller';
+import { resendEmailSchema } from './schemas/resendEmail.schema';
 
 const router = Router();
 
@@ -40,6 +43,14 @@ router.get(
   '/google/callback',
   passport.authenticate('google', { session: false }),
   googleOauthCallback
+);
+
+router.post('/verify-email', isAuthenticated, verifyEmail);
+router.post(
+  '/resend-email',
+  isAuthenticated,
+  validateSchema(resendEmailSchema),
+  resendEmailWithOtp
 );
 
 export { router as authRoutes };
