@@ -26,7 +26,7 @@ export const isAuthenticated = async (
       AppError(res, 404, 'Malformed token: cause no user found with it');
       return;
     }
-    
+
     req.user = decoded;
     next();
   } catch (error: any) {

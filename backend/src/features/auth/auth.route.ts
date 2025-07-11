@@ -8,6 +8,8 @@ import { isAuthenticated } from '@/shared/middlewares/isAuthenticated.middleware
 import { refreshingTheTokens } from './controllers/refreshTokens.controller';
 import { changePassword } from './controllers/changePassword.controller';
 import { changePasswordSchema } from './schemas/changePassword.schema';
+import passport from 'passport';
+import { googleOauthCallback } from './controllers/googleOAuth.controller';
 
 const router = Router();
 
@@ -20,6 +22,16 @@ router.patch(
   isAuthenticated,
   validateSchema(changePasswordSchema),
   changePassword
+);
+
+router.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+router.get(
+  '/google/callback',
+  passport.authenticate('google', { session: false }),
+  googleOauthCallback
 );
 
 export { router as authRoutes };

@@ -1,12 +1,15 @@
+import './config/passport'
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import { authRoutes } from './features/auth/auth.route';
+import passport from 'passport';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(passport.initialize())
 
 app.use('/api/auth', authRoutes);
 

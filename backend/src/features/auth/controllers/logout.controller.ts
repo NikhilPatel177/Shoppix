@@ -1,10 +1,11 @@
 import env from '@/config/env';
 import UserModel from '@/shared/models/user.model';
+import { DecodedJwt } from '@/shared/types/DecodedToken.type';
 import { AppError, AppSuccess } from '@/shared/utils/AppResponse';
 import { RequestHandler } from 'express';
 
 export const logoutUser: RequestHandler = async (req, res) => {
-  const user = req.user;
+  const user = req.user as DecodedJwt;
   try {
     const userExists = await UserModel.findById(user.id);
 

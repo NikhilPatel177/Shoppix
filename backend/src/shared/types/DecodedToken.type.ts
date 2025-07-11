@@ -4,6 +4,6 @@ import { UserRoles } from '../models/user.model';
 export type DecodedJwt = {
   id: Types.ObjectId;
   activeRole: UserRoles;
-  iat: number;
-  exp: number;
+  iat?: number;
+  exp?: number;
 };

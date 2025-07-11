@@ -2,9 +2,10 @@ import UserModel from '@/shared/models/user.model';
 import { AppError, AppSuccess } from '@/shared/utils/AppResponse';
 import { RequestHandler } from 'express';
 import { ChangePassword } from '../schemas/changePassword.schema';
+import { DecodedJwt } from '@/shared/types/DecodedToken.type';
 
 export const changePassword: RequestHandler = async (req, res) => {
-  const user = req.user;
+  const user = req.user as DecodedJwt;
   const data = req.validatedData as ChangePassword;
   try {
     const userExists = await UserModel.findById(user.id).select('+password');

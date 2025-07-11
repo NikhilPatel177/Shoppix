@@ -11,6 +11,11 @@ const envSchema = z.object({
   REFRESH_TOKEN_SECRET: z.string().min(32),
   ACCESS_TOKEN_EXPIRY: z.string().default('15m'),
   REFRESH_TOKEN_EXPIRY: z.string().default('7d'),
+
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  GOOGLE_CALLBACK_URL: z.url(),
+  FRONTEND_URL: z.url(),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

@@ -53,8 +53,6 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
   { timestamps: true }
 );
 
-userSchema.index({ email: 1 });
-
 userSchema.pre('save', async function (next) {
   const user = this as HydratedDocument<IUser>;
 
