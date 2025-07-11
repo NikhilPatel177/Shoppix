@@ -10,6 +10,8 @@ import { changePassword } from './controllers/changePassword.controller';
 import { changePasswordSchema } from './schemas/changePassword.schema';
 import passport from 'passport';
 import { googleOauthCallback } from './controllers/googleOAuth.controller';
+import { setPasswordSchema } from './schemas/setPassword.schema';
+import { setPassword } from './controllers/setPassword.controller';
 
 const router = Router();
 
@@ -22,6 +24,12 @@ router.patch(
   isAuthenticated,
   validateSchema(changePasswordSchema),
   changePassword
+);
+router.patch(
+  '/set-password',
+  isAuthenticated,
+  validateSchema(setPasswordSchema),
+  setPassword
 );
 
 router.get(
