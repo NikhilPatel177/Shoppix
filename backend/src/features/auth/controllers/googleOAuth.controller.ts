@@ -25,6 +25,7 @@ export const googleOauthCallback: RequestHandler = async (req, res) => {
       secure: env.NODE_ENV === 'production',
       httpOnly: true,
     });
+    console.log(tokens.accessToken)
 
     res.redirect(`${env.FRONTEND_URL}/auth/google/success`);
   } catch (error) {

@@ -21,6 +21,14 @@ export const loginUser: RequestHandler = async (req, res) => {
       return;
     }
 
+    if(existingUser.isEmailVerified && !existingUser.password){
+      return AppError(
+        res,
+        400,
+        'No password was set as you last logged in with Google. Please continue with Google or set a password from your profile.'
+      );
+    }
+
     const isPasswordCorrect = await existingUser.comparePassword(password); 
     if (!isPasswordCorrect) {
       AppError(res, 400, 'Invalid password');

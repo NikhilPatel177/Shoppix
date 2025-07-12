@@ -7,7 +7,6 @@ import env from '@/config/env';
 import { AuthUserType } from '../types/auth.types';
 import { sendFormattedData } from '../utils/sendFormattedData';
 import { sendEmail } from '@/shared/utils/sendEmails';
-import { otpEmailTemplates } from '@/shared/emails/EmailTemplates';
 import { generateOtp } from '@/shared/utils/generateOtp';
 import OtpModel from '@/shared/models/otp.model';
 
@@ -68,6 +67,7 @@ export const registerUser: RequestHandler = async (req, res) => {
       tokens.accessToken
     );
   } catch (error) {
+    console.log('Registration error : ',error)
     AppError(res);
   }
 };

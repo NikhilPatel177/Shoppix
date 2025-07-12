@@ -37,8 +37,13 @@ export const forgotPassword: RequestHandler = async (req, res) => {
           429,
           `Too many requests. Try again after ${minutesLeft} minute(s).`
         );
+      } else if (
+        otpRecord.lockedUntil &&
+        otpRecord.lockedUntil.getTime() <= Date.now()
+      ) {
+        await otpRecord.deleteOne();
       } else {
-        return AppSuccess(res,200,`Otp was already sent to your email`);
+        return AppSuccess(res, 200, `Otp was already sent to your email`);
       }
     }
     const otp = generateOtp();
