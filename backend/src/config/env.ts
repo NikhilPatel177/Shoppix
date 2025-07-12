@@ -19,6 +19,9 @@ const envSchema = z.object({
 
   BREVO_EMAIL: z.email(),
   BREVO_SMTP_KEY: z.string(),
+
+  RESET_PASSWORD_SECRET:z.string(),
+  RESET_PASSWORD_EXPIRY:z.string().default('15m'),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

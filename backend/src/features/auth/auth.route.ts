@@ -15,6 +15,13 @@ import { setPassword } from './controllers/setPassword.controller';
 import { verifyEmail } from './controllers/verifyEmail.controller';
 import { resendEmailWithOtp } from './controllers/resend-email/resendEmailVerification.controller';
 import { resendEmailSchema } from './schemas/resendEmail.schema';
+import { forgotPassword } from './controllers/forgot-password/forgotPassword.controller';
+import {
+  forgotPasswordSchema,
+  resetPasswordSchema,
+} from './schemas/resetPassword.schema';
+import { resetPassword } from './controllers/forgot-password/resetPassword.controller';
+import { passwordOtpVerify } from './controllers/forgot-password/verifyOtp.controller';
 
 const router = Router();
 
@@ -48,9 +55,20 @@ router.get(
 router.post('/verify-email', isAuthenticated, verifyEmail);
 router.post(
   '/resend-email',
-  isAuthenticated,
   validateSchema(resendEmailSchema),
   resendEmailWithOtp
+);
+
+router.post(
+  '/forgot-password',
+  validateSchema(forgotPasswordSchema),
+  forgotPassword
+);
+router.post('/verify-otp', passwordOtpVerify);
+router.post(
+  '/reset-password',
+  validateSchema(resetPasswordSchema),
+  resetPassword
 );
 
 export { router as authRoutes };

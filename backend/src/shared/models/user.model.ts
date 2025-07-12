@@ -13,6 +13,7 @@ export interface IUser {
   googleProviderId?: string;
   avatar?: string;
   refreshToken: string;
+  passwordResetToken: string|undefined;
   isEmailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -48,6 +49,7 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
       default: 'buyer',
     },
     refreshToken: String,
+    passwordResetToken: String,
     isEmailVerified: { type: Boolean, default: false },
   },
   { timestamps: true }
