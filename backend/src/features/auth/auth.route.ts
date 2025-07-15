@@ -42,10 +42,15 @@ router.patch(
   setPassword
 );
 
-router.get(
-  '/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
+router.get('/google', (req, res, next) => {
+  const redirectTo = req?.query?.redirectTo || '/';
+  const state = Buffer.from(JSON.stringify({ redirectTo })).toString('base64');
+  passport.authenticate('google', { scope: ['profile', 'email'], state })(
+    req,
+    res,
+    next
+  );
+});
 router.get(
   '/google/callback',
   passport.authenticate('google', { session: false }),

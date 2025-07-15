@@ -18,16 +18,26 @@ export const googleOauthCallback: RequestHandler = async (req, res) => {
     const tokens = generateTokens(userExists);
     userExists.refreshToken = tokens.refreshToken;
     await userExists.save();
-
     res.cookie('refreshToken', tokens.refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       sameSite: 'lax',
       secure: env.NODE_ENV === 'production',
       httpOnly: true,
     });
-    console.log(tokens.accessToken)
 
-    res.redirect(`${env.FRONTEND_URL}/auth/google/success`);
+    const rawState = req.query.state as string;
+    let redirectTo = '/';
+
+    if (rawState) {
+      try {
+        const decoded = JSON.parse(Buffer.from(rawState, 'base64').toString());
+        redirectTo = decoded?.redirectTo || '/';
+      } catch (err) {
+        console.warn('Failed to parse redirect state:', err);
+      }
+    }
+
+    res.redirect(`${env.FRONTEND_URL}${redirectTo}`);
   } catch (error) {
     AppError(res);
   }
