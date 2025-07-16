@@ -1,14 +1,12 @@
 import OtpModel from '@/shared/models/otp.model';
 import UserModel from '@/shared/models/user.model';
-import { DecodedJwt } from '@/shared/types/DecodedToken.type';
 import { AppError, AppSuccess } from '@/shared/utils/AppResponse';
 import { RequestHandler } from 'express';
 
 export const verifyEmail: RequestHandler = async (req, res) => {
   const data = req.body as { otpCode: string; email: string };
-  const user = req.user as DecodedJwt;
   try {
-    const userExists = await UserModel.findById(user.id);
+    const userExists = await UserModel.findOne({email:data.email});
 
     if (!userExists) {
       AppError(res, 404, 'No user found');

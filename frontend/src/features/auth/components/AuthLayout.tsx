@@ -8,7 +8,7 @@ type AuthLayoutProps = {
 export const AuthLayout = ({ children, title, desc }: AuthLayoutProps) => {
   return (
     <div className="grid min-[900px]:items-center min-[900px]:justify-center min-[500px]:p-4">
-      <div className="min-h-115 max-w-220 font-[poppins] grid rounded-xl min-[500px]:shadow-md min-[700px]:grid-cols-2">
+      <div className="min-h-115 max-w-220 font-[poppins] grid grid-rows-[auto_1fr] rounded-xl min-[500px]:shadow-md min-[700px]:grid-cols-2">
         <section className="bg-gray-50 py-4 px-3 min-[900px]:p-6">
           <div className="">
             <h1 className="font-bold text-xl text-primary capitalize min-[900px]:text-2xl">

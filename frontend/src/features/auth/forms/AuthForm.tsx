@@ -16,7 +16,11 @@ export const AuthForm = ({ mode }: { mode: 'register' | 'login' }) => {
     form.setValue('password', '');
   }, [mode, form]);
 
-  const { mutate: AuthMutate, isPending, isSuccess } = useAuthMutation();
+  const {
+    mutate: AuthMutate,
+    isPending,
+    isSuccess,
+  } = useAuthMutation({ setError: form.setError });
 
   function handleFormSubmit(data: AuthSchemaType) {
     AuthMutate(data);

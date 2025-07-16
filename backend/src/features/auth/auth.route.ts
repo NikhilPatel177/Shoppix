@@ -57,7 +57,7 @@ router.get(
   googleOauthCallback
 );
 
-router.post('/verify-email', isAuthenticated, verifyEmail);
+router.post('/verify-email', verifyEmail);
 router.post(
   '/resend-email',
   validateSchema(resendEmailSchema),

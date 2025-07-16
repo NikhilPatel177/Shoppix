@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { AuthLayout } from '../components/AuthLayout';
 import { AuthForm } from '../forms/AuthForm';
-import { GoogleOauthButton } from '../interactions/GoolgOauthButton';
+import { GoogleOauthButton } from '../interactions/GoogleOauthButton';
 
 export const AuthPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();

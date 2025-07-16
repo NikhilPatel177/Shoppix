@@ -1,4 +1,4 @@
-import type { User } from "./User.type";
+import type { User } from './User.type';
 
 export interface ServerRes {
   accessToken: string;
@@ -6,4 +6,5 @@ export interface ServerRes {
   message: string;
   success: boolean;
   statusCode: boolean;
+  errors: { field: string; message: string }[];
 }
