@@ -12,11 +12,11 @@ export const forgotPassword: RequestHandler = async (req, res) => {
   try {
     const userExists = await UserModel.findOne({ email: data.email });
 
-    if (!userExists || !userExists.isEmailVerified) {
-      return AppSuccess(
+    if (!userExists) {
+      return AppError(
         res,
-        200,
-        'If your email exists and is verified, an OTP will be sent'
+        404,
+        'No user found with this email, Enter valid email address'
       );
     }
 

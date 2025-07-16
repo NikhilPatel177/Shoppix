@@ -43,8 +43,7 @@ export const ResendEmailButton = ({
   });
 
   function SendResendCode() {
-    if (!user?.email) return;
-    mutate({ email: user.email, purpose });
+    mutate({ email: user?.email, purpose });
   }
 
   return (

@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useAuthMutation } from '../hooks/useAuthMutation';
 import { Loading } from '@/shared/components/Loading';
 import { CircleCheckBig } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const AuthForm = ({ mode }: { mode: 'register' | 'login' }) => {
   const form = useForm<AuthSchemaType>({ resolver: zodResolver(authSchema) });
@@ -33,7 +34,17 @@ export const AuthForm = ({ mode }: { mode: 'register' | 'login' }) => {
         onSubmit={form.handleSubmit(handleFormSubmit)}
       >
         <MyInput name="email" label="Email" />
-        <MyInput name="password" label="Password" type="password" />
+        <div>
+          <MyInput name="password" label="Password" type="password" />
+
+          {mode === 'login' && (
+            <div className="w-full grid mt-2 items-end justify-end">
+              <Link to={'/forgot-password'} className="text-primary text-sm">
+                Forgot Password?
+              </Link>
+            </div>
+          )}
+        </div>
 
         {mode === 'register' && (
           <StrongPasswordCheckUi password={form.watch('password')} />

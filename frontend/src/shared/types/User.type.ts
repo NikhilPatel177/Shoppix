@@ -5,4 +5,5 @@ export type User = {
   avatar: string;
   createdAt: Date;
   id: string;
+  resetToken: string;
 };
