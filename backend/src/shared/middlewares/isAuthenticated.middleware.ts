@@ -13,7 +13,7 @@ export const isAuthenticated = async (
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return AppError(res, 400, 'Access token not provided or invalid format');
+    return AppError(res, 401, 'Access token not provided or invalid format');
   }
 
   const token = authHeader.split(' ')[1];

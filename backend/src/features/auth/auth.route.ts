@@ -22,6 +22,7 @@ import {
 } from './schemas/resetPassword.schema';
 import { resetPassword } from './controllers/forgot-password/resetPassword.controller';
 import { passwordOtpVerify } from './controllers/forgot-password/verifyOtp.controller';
+import { getUser } from './controllers/getUser.controller';
 
 const router = Router();
 
@@ -75,5 +76,7 @@ router.post(
   validateSchema(resetPasswordSchema),
   resetPassword
 );
+
+router.get('/me', isAuthenticated, getUser);
 
 export { router as authRoutes };
