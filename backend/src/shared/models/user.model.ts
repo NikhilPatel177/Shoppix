@@ -5,6 +5,7 @@ export type UserRoles = 'buyer' | 'seller' | 'admin';
 export type providers = 'google' | 'credentials';
 export interface IUser {
   id: string;
+  fullName: { firstName: string; lastName: string };
   email: string;
   password?: string;
   roles: UserRoles[];
@@ -13,7 +14,7 @@ export interface IUser {
   googleProviderId?: string;
   avatar?: string;
   refreshToken: string;
-  passwordResetToken: string|undefined;
+  passwordResetToken: string | undefined;
   isEmailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -23,6 +24,10 @@ export interface IUser {
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
   {
+    fullName: {
+      firstName: String,
+      lastName: String,
+    },
     email: { type: String, required: true, unique: true, lowercase: true },
     password: {
       type: String,

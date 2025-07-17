@@ -9,5 +9,9 @@ export const sendFormattedData = (user: IUser): AuthUserType => {
     activeRole: user.activeRole,
     isEmailVerified: user.isEmailVerified,
     createdAt: user.createdAt,
+    fullName: {
+      firstName: user.fullName.firstName,
+      lastName: user.fullName.lastName,
+    },
   };
 };

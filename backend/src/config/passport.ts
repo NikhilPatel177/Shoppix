@@ -20,7 +20,15 @@ passport.use(
           return done(null, userExists);
         }
 
+        const [first, ...rest] = profile.displayName?.split(' ') || [];
+        const firstName = profile.name?.givenName || first || 'User';
+        const lastName = profile.name?.familyName || rest.join(' ') || '';
+
         const newUser = await UserModel.create({
+          fullName:{
+            firstName,
+            lastName,
+          },
           email: profile.emails?.[0].value,
           googleProviderId: profile.id,
           isEmailVerified: true,
