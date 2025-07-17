@@ -17,11 +17,7 @@ export const authRoutes: RouteObject[] = [
   },
   {
     path: '/verify-email',
-    element: (
-      <GuestOnly>
-        <VerifyEmailPage />
-      </GuestOnly>
-    ),
+    element: <VerifyEmailPage />,
   },
   {
     path: '/forgot-password',
