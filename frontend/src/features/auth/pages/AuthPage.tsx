@@ -11,11 +11,15 @@ export const AuthPage = () => {
     modeParam === 'login' ? 'login' : 'register'
   );
 
-  useEffect(() => {
-    if (mode !== searchParams.get('mode')) {
-      setSearchParams({ mode });
-    }
-  }, [mode, setSearchParams, searchParams]);
+useEffect(() => {
+  const currentMode = searchParams.get('mode');
+  if (mode !== currentMode) {
+    const params = new URLSearchParams(searchParams);
+    params.set('mode', mode); 
+    setSearchParams(params); 
+  }
+}, [mode, setSearchParams, searchParams]);
+
 
   return (
     <AuthLayout
