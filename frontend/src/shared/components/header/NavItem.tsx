@@ -25,7 +25,7 @@ export const NavItem = ({ to, label, icon: Icon ,className,children}: NavItemPro
         }
       >
         {children}
-        {Icon && <Icon className="w-5 h-5" color='gray' />}
+        {Icon && <Icon className="w-5 h-5" />}
         {label}
       </NavLink>
     </li>
