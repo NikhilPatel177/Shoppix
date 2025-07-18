@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import env from './env';
-import UserModel, { IUser } from '@/shared/models/user.model';
+import UserModel from '@/shared/models/user.model';
 
 passport.use(
   new GoogleStrategy(
@@ -25,7 +25,7 @@ passport.use(
         const lastName = profile.name?.familyName || rest.join(' ') || '';
 
         const newUser = await UserModel.create({
-          fullName:{
+          fullName: {
             firstName,
             lastName,
           },

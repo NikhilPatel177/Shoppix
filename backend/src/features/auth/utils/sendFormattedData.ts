@@ -1,4 +1,4 @@
-import { IUser } from '@/shared/models/user.model';
+import { IUser } from '@/shared/types/IUser.type';
 import { AuthUserType } from '../types/auth.types';
 
 export const sendFormattedData = (user: IUser): AuthUserType => {

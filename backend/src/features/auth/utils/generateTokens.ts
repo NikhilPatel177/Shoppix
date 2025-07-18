@@ -1,5 +1,5 @@
 import env from '@/config/env';
-import { IUser } from '@/shared/models/user.model';
+import { IUser } from '@/shared/types/IUser.type';
 import jwt from 'jsonwebtoken';
 
 export interface Tokens {

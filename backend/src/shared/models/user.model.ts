@@ -1,26 +1,7 @@
-import { Document, Schema, Model, HydratedDocument, model } from 'mongoose';
+import { Schema, Model, HydratedDocument, model } from 'mongoose';
 import bcrypt from 'bcryptjs';
-
-export type UserRoles = 'buyer' | 'seller' | 'admin';
-export type providers = 'google' | 'credentials';
-export interface IUser {
-  id: string;
-  fullName: { firstName: string; lastName: string };
-  email: string;
-  password?: string;
-  roles: UserRoles[];
-  activeRole: UserRoles;
-  provider: providers[];
-  googleProviderId?: string;
-  avatar?: string;
-  refreshToken: string;
-  passwordResetToken: string | undefined;
-  isEmailVerified: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-
-  comparePassword(enteredPassword: string): Promise<boolean>;
-}
+import { IUser, providers } from '../types/IUser.type';
+import { addressSchema } from './address.model';
 
 const userSchema = new Schema<IUser, Model<IUser>, IUser>(
   {
@@ -55,6 +36,10 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     },
     refreshToken: String,
     passwordResetToken: String,
+    addresses: [addressSchema],
+    phone:{type:String},
+
+    isPhoneVerified: { type: Boolean, default: false },
     isEmailVerified: { type: Boolean, default: false },
   },
   { timestamps: true }

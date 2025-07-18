@@ -1,5 +1,5 @@
-import UserModel, { IUser } from '@/shared/models/user.model';
-import { AppError, AppSuccess } from '@/shared/utils/AppResponse';
+import UserModel from '@/shared/models/user.model';
+import { AppError } from '@/shared/utils/AppResponse';
 import { RequestHandler } from 'express';
 import { generateTokens } from '../utils/generateTokens';
 import env from '@/config/env';
