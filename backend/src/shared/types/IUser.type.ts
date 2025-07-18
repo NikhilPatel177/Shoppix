@@ -17,6 +17,7 @@ export interface IUser {
   passwordResetToken: string | undefined;
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
+  gender: 'male' | 'female' | 'other' | 'prefer_not_to_say';
   addresses: IAddress[];
 
   createdAt: Date;

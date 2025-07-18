@@ -37,7 +37,12 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     refreshToken: String,
     passwordResetToken: String,
     addresses: [addressSchema],
-    phone:{type:String},
+    phone: { type: String },
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'other', 'prefer_not_to_say'],
+      default: 'male',
+    },
 
     isPhoneVerified: { type: Boolean, default: false },
     isEmailVerified: { type: Boolean, default: false },

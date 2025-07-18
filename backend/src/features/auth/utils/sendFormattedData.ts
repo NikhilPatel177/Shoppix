@@ -14,7 +14,6 @@ export const sendFormattedData = (user: IUser): AuthUserType => {
       lastName: user.fullName.lastName,
     },
     isPhoneVerified:user.isPhoneVerified,
-    addresses:user.addresses,
     phone:user.phone,
   };
 };
