@@ -11,4 +11,5 @@ export type AuthUserType = Pick<
   | 'fullName'
   | 'phone'
   | 'isPhoneVerified'
+  | 'gender'
 >;

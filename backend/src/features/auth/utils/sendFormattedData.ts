@@ -15,5 +15,6 @@ export const sendFormattedData = (user: IUser): AuthUserType => {
     },
     isPhoneVerified:user.isPhoneVerified,
     phone:user.phone,
+    gender:user.gender,
   };
 };
