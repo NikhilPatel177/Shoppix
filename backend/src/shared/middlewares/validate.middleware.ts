@@ -1,9 +1,9 @@
 import { Response, Request, NextFunction } from 'express';
-import { ZodObject, ZodTypeAny } from 'zod';
+import { ZodTypeAny } from 'zod';
 import { AppError } from '../utils/AppResponse';
 
 export const validateSchema =
-  <T extends ZodObject<Record<string, ZodTypeAny>>>(schema: T) =>
+  <T extends ZodTypeAny>(schema: T) =>
   (req: Request, res: Response, next: NextFunction) => {
     if (!req.body || Object.keys(req.body).length === 0) {
       AppError(res, 400, 'Provide Data');
