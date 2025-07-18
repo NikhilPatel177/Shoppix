@@ -1,19 +1,25 @@
 import z from 'zod';
-import { authBaseSchema } from './base.schema';
-import { setPasswordSchema } from './setPassword.schema';
+import { authBaseSchema, strongPasswordField } from './base.schema';
 
 export const forgotPasswordSchema = authBaseSchema.pick({ email: true });
 
 export type ForgotPassword = z.infer<typeof forgotPasswordSchema>;
 
-export const resetPasswordSchema = setPasswordSchema
-  .pick({
-    newPassword: true,
-    confirmNewPassword: true,
+export const resetPasswordSchema = z
+  .object({
+    newPassword: z
+      .string({ required_error: 'New password is required' })
+      .min(1)
+      .pipe(strongPasswordField),
+    confirmNewPassword: z
+      .string({ required_error: 'Confirm new password is required' })
+      .min(1),
+    resetToken: z
+      .string({ required_error: 'Reset token is required' })
+      .min(1, 'Reset token is required'),
   })
-  .extend({ resetToken: z.string({ error: 'Reset token is required' }) })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
-    error: 'Passwords do not match',
+    message: 'Passwords do not match',
     path: ['confirmNewPassword'],
   });
 

@@ -7,7 +7,7 @@ export const registerSchema = authBaseSchema
   })
   .extend({
     password: z
-      .string({ error: 'Password is required' })
+      .string({ required_error: 'Password is required' })
       .pipe(strongPasswordField),
   });
 

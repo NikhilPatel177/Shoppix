@@ -10,22 +10,12 @@ export const profileUpdateSchema = z
       .optional(),
     fullName: z
       .object({
-        firstName: z
-          .string()
-          .min(1, { error: 'First name cannot be empty' })
-          .optional(),
-        lastName: z
-          .string()
-          .min(1, { error: 'Last name cannot be empty' })
-          .optional(),
+        firstName: z.string().optional(),
+        lastName: z.string().optional(),
       })
       .optional(),
-    avatar: z.url({ error: 'Avatar must be a valid URL' }).optional(),
-    gender: z
-      .enum(['male', 'female', 'other', 'prefer_not_to_say'], {
-        error: 'Gender must be one of allowed values only',
-      })
-      .optional(),
+    avatar: z.string().url('Avatar must be a valid URL').optional(),
+    gender: z.enum(['male', 'female', 'other', 'prefer_not_to_say']).optional(),
   })
   .strict();
 

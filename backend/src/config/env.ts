@@ -3,8 +3,8 @@ import z from 'zod';
 dotenv.config();
 
 const envSchema = z.object({
-  PORT: z.string().transform(Number).default(3000),
-  MONGO_URI: z.url(),
+  PORT: z.string({required_error:'PORT is required'}).default('3000').transform(Number),
+  MONGO_URI: z.string().url(),
   NODE_ENV: z.enum(['development', 'production']),
 
   ACCESS_TOKEN_SECRET: z.string().min(32),
@@ -14,10 +14,10 @@ const envSchema = z.object({
 
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
-  GOOGLE_CALLBACK_URL: z.url(),
-  FRONTEND_URL: z.url(),
+  GOOGLE_CALLBACK_URL: z.string().url(),
+  FRONTEND_URL: z.string().url(),
 
-  BREVO_EMAIL: z.email(),
+  BREVO_EMAIL: z.string().email(),
   BREVO_SMTP_KEY: z.string(),
 
   RESET_PASSWORD_SECRET:z.string(),
