@@ -1,21 +1,20 @@
 import z from 'zod';
 
 export const authBaseSchema = z.object({
-  email: z.email({
-    error: (issue) =>
-      issue.input === undefined ? 'Email is required' : 'Invalid email address',
-  }),
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email('Invalid email address'),
   password: z
-    .string({ error: 'Password is required' })
-    .min(8, { error: 'At least 8 characters' }),
+    .string({ required_error: 'Password is required' })
+    .min(8, 'At least 8 characters'),
   currentPassword: z
-    .string({ error: 'Current password is required' })
-    .min(8, { error: 'At least 8 characters' }),
+    .string({ required_error: 'Current password is required' })
+    .min(8, 'At least 8 characters'),
 });
 
 export const strongPasswordField = z
   .string()
-  .min(8, { error: 'At least 8 characters' })
-  .regex(/\d/, { error: 'At least 1 number' })
-  .regex(/[a-z]/, { error: 'At least 1 lowercase letter' })
-  .regex(/[A-Z]/, { error: 'At least 1 uppercase letter' });
+  .min(8, 'At least 8 characters')
+  .regex(/\d/, 'At least 1 number')
+  .regex(/[a-z]/, 'At least 1 lowercase letter')
+  .regex(/[A-Z]/, 'At least 1 uppercase letter');
