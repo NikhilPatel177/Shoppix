@@ -1,4 +1,4 @@
-import { IUser } from '@/shared/models/user.model';
+import { IUser } from '@/shared/types/IUser.type';
 
 export type AuthUserType = Pick<
   IUser,

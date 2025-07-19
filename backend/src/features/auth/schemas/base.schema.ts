@@ -4,6 +4,9 @@ export const authBaseSchema = z.object({
   email: z
     .string({ required_error: 'Email is required' })
     .email('Invalid email address'),
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email('Invalid email address'),
   password: z
     .string({ required_error: 'Password is required' })
     .min(8, 'At least 8 characters'),

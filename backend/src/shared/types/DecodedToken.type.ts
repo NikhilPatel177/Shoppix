@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { UserRoles } from '../models/user.model';
+import { UserRoles } from '../types/IUser.type';
 
 export type DecodedJwt = {
   id: Types.ObjectId;

@@ -16,7 +16,10 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   GOOGLE_CALLBACK_URL: z.string().url(),
   FRONTEND_URL: z.string().url(),
+  GOOGLE_CALLBACK_URL: z.string().url(),
+  FRONTEND_URL: z.string().url(),
 
+  BREVO_EMAIL: z.string().email(),
   BREVO_EMAIL: z.string().email(),
   BREVO_SMTP_KEY: z.string(),
 
