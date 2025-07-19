@@ -1,13 +1,14 @@
 import { CircleUserRound, Heart, ShoppingCart, Store } from 'lucide-react';
 import { MySearchBar } from '../components/MySearchBar';
 import { NavItem } from '../components/header/NavItem';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../strore/useAuthStore';
 import { MyProfileDropdownMenu } from '../components/header/MyProfileDropdownMenu';
 import { HeaderSideBar } from '../components/header/HeaderSideBar';
 
 export const Header = () => {
   const { user } = useAuthStore();
+  const location = useLocation();
 
   return (
     <>
@@ -43,7 +44,11 @@ export const Header = () => {
               />
               <NavItem to="/cart" label="Cart" icon={ShoppingCart} />
               {!user ? (
-                <NavItem to="/auth" label="Register" icon={CircleUserRound} />
+                <NavItem
+                  to={`/auth?from=${location.pathname}`}
+                  label="Register"
+                  icon={CircleUserRound}
+                />
               ) : (
                 <MyProfileDropdownMenu />
               )}

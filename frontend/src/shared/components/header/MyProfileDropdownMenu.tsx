@@ -43,11 +43,9 @@ export const MyProfileDropdownMenu = () => {
           className="absolute top-8 right-0 w-50 shadow-sm rounded-md p-2 font-[poppins] text-gray-600 flex flex-col gap-1"
           onMouseLeave={() => setOpenDropdown((prev) => !prev)}
         >
-          <p className="w-full text-center">My Account</p>
-          <hr />
           <ul>
             <MyDropdownItem
-              to="/account"
+              to="/account/profile"
               label="My Profile"
               icon={CircleUserRound}
             />
