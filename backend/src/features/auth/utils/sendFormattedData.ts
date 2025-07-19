@@ -13,5 +13,8 @@ export const sendFormattedData = (user: IUser): AuthUserType => {
       firstName: user.fullName.firstName,
       lastName: user.fullName.lastName,
     },
+    gender: user.gender,
+    isPhoneVerified: user.isPhoneVerified,
+    phone: user.phone,
   };
 };

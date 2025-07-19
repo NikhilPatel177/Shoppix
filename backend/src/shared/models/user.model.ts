@@ -16,6 +16,9 @@ export interface IUser {
   refreshToken: string;
   passwordResetToken: string | undefined;
   isEmailVerified: boolean;
+  isPhoneVerified: boolean;
+  phone?: string;
+  gender: 'male' | 'female' | 'other' | 'prefer_not_to_say';
   createdAt: Date;
   updatedAt: Date;
 
@@ -56,6 +59,13 @@ const userSchema = new Schema<IUser, Model<IUser>, IUser>(
     refreshToken: String,
     passwordResetToken: String,
     isEmailVerified: { type: Boolean, default: false },
+    isPhoneVerified: { type: Boolean, default: false },
+    phone: String,
+    gender: {
+      type: String,
+      enum: ['male', 'female', 'other', 'prefer_not_to_say'],
+      default: 'male',
+    },
   },
   { timestamps: true }
 );
