@@ -11,8 +11,10 @@
   --color-muted-foreground: #62646a;
   --color-border: #e4e5e7;
 
-  --font-poppins: 'Poppins', sans-serif,system-ui;
-  --font-openSans: 'Open Sans', sans-serif,system-ui;
+  --font-poppins: 'Poppins', sans-serif, system-ui;
+  --font-openSans: 'Open Sans', sans-serif, system-ui;
+
+  --breakpoint-2md: 900px;
 }
 
 body {
