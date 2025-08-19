@@ -53,7 +53,7 @@ export const AuthLayout = ({
         <section className="flex flex-col justify-between gap-4 p-2 xs:px-4 xs:pt-4 md:p-6">
           <div>
             <h1 className="text-xl font-bold font-poppins">{title}</h1>
-            <p className="hidden font-medium text-xs text-muted-foreground md:block">
+            <p className="font-medium text-xs text-muted-foreground md:block">
               {description}
             </p>
           </div>
