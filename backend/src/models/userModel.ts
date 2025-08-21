@@ -14,6 +14,13 @@ const userSchema = new mongoose.Schema<IUser>(
         'Email must be unique, The one you gave is already in use',
       ],
     },
+    phone: {
+      type: String,
+      unique: [
+        true,
+        'Phone must be unique, The one you gave is already in use',
+      ],
+    },
     password: {
       type: String,
       required: [true, 'Password is required'],
