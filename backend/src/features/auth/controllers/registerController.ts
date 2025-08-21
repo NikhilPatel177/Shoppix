@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
 import { UserModel } from '@models/userModel';
+import { genJwtToken } from '@common/utils';
 import { RegisterType } from '../schemas';
+import { REFRESH_TOKEN_COOKIE_OPTIONS } from '../constants/cookieOptions';
 
 export const registerUserController: RequestHandler = async (req, res) => {
   const data = req.validatedData as RegisterType;
@@ -19,7 +21,19 @@ export const registerUserController: RequestHandler = async (req, res) => {
       password: data.password,
     });
 
-    return res.status(201).json({ message: 'User registeration successfull',data:newUser });
+    const accessToken = genJwtToken('accessToken', { _id: newUser._id });
+    const refreshToken = genJwtToken('refreshToken', { _id: newUser._id });
+
+    newUser.refreshToken = refreshToken;
+    await newUser.save();
+
+    res.cookie('refreshToken', refreshToken, REFRESH_TOKEN_COOKIE_OPTIONS);
+
+    return res.status(201).json({
+      message: 'User registeration successfull',
+      data: newUser,
+      accessToken,
+    });
   } catch (error) {
     console.log('Registration Failed :-', error);
 

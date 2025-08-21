@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
 import { UserModel } from '@models/userModel';
+import { genJwtToken } from '@common/utils';
 import { LoginType } from '../schemas';
+import { REFRESH_TOKEN_COOKIE_OPTIONS } from '../constants/cookieOptions';
 
 export const loginUserController: RequestHandler = async (req, res) => {
   const data = req.validatedData as LoginType;
@@ -31,7 +33,17 @@ export const loginUserController: RequestHandler = async (req, res) => {
       });
     }
 
-    return res.status(200).json({ message: 'User logged in successfull' });
+    const accessToken = genJwtToken('accessToken', { _id: isUser._id });
+    const refreshToken = genJwtToken('refreshToken', { _id: isUser._id });
+
+    isUser.refreshToken = refreshToken;
+    await isUser.save();
+
+    res.cookie('refreshToken', refreshToken, REFRESH_TOKEN_COOKIE_OPTIONS);
+
+    return res
+      .status(200)
+      .json({ message: 'User logged in successfull', accessToken });
   } catch (error) {
     console.log('Login Failed :-', error);
 

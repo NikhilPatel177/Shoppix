@@ -5,6 +5,13 @@ dotenv.config();
 const envSchema = z.object({
   PORT: z.string().transform(Number).default('3000'),
   MONGO_URI: z.string().url(),
+  NODE_ENV: z.enum(['development','production']),
+
+  ACCESS_TOKEN_SECRET: z.string(),
+  ACCESS_TOKEN_EXPIRY: z.string(),
+
+  REFRESH_TOKEN_SECRET: z.string(),
+  REFRESH_TOKEN_EXPIRY: z.string(),
 });
 
 const result = envSchema.safeParse(process.env);
