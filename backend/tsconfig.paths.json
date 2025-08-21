@@ -3,6 +3,10 @@
     "baseUrl": "./src",
     "paths": {
       "@config/*": ["config/*"],
+      "@features/*": ["features/*"],
+
+      "@common/*": ["common/*"],
+      "@models/*": ["models/*"],
     }
   }
 }
